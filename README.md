@@ -266,30 +266,29 @@ Client mendapatkan DNS dari EniesLobby dan client dapat terhubung dengan interne
   ![image](https://user-images.githubusercontent.com/80946219/141331335-7f3e931e-d555-46e2-97eb-5c8f9938b246.png)
   ![image](https://user-images.githubusercontent.com/80946219/141331165-834b907d-9f5d-4ca1-bd7f-b16b68f50d9d.png)
   
-  
 ## Soal 8
-  Loguetown digunakan sebagai client Proxy agar transaksi jual beli dapat terjamin keamanannya, juga untuk mencegah kebocoran data transaksi. Pada Loguetown, proxy harus bisa diakses dengan nama jualbelikapal.yyy.com dengan port yang digunakan adalah 5000 (8). 
-  ### Jawaban : 
-
-	#### Membuat Domain pada **DNS Server** **(EniesLobby)** 
+Loguetown digunakan sebagai client Proxy agar transaksi jual beli dapat terjamin keamanannya, juga untuk mencegah kebocoran data transaksi. Pada Loguetown, proxy harus bisa diakses dengan nama jualbelikapal.yyy.com dengan port yang digunakan adalah 5000 (8).
+### Jawaban :
 	
-	Mengakses file `/etc/bind/named.conf.local`
-	```
+#### Membuat Domain pada **DNS Server (EniesLobby)**
+	
+Mengakses file `/etc/bind/named.conf.local`
+
 	zone "jualbelikapal.a05.com" {
 	     type master;
 	     file "/etc/bind/kaizoku/jualbelikapal.a05.com";
 	};
-	```
 	
-	Lalu melakukan beberapa hal berikut
-	```
+Lalu melakukan beberapa hal berikut
+	
 	mkdir /etc/bind/kaizoku
+	
 	cp /etc/bind/db.local /etc/bind/kaizoku/jualbelikapal.a05.com
-	```
 	
-	Mengubah konfigurasi pada file `/etc/bind/kaizoku/jualbelikapal.a05.com`
 	
-	```
+Mengubah konfigurasi pada file `/etc/bind/kaizoku/jualbelikapal.a05.com`
+	
+	
 	;
 	; BIND data file for local loopback interface
 	;
@@ -306,73 +305,81 @@ Client mendapatkan DNS dari EniesLobby dan client dapat terhubung dengan interne
 	www     IN      CNAME   jualbelikapal.a05.com.
 	@       IN      AAAA    ::1
 
-	```
 	
-	Melakukan restart pada DNS Server
+	
+Melakukan restart pada DNS Server
 	```
 	service bind9 restart
 	```
+
+
+#### Pada **Proxy Server (Water7)** melakukan beberapa konfigurasi berikut
 	
-	#### Pada **Proxy Server (Water7)** melakukan beberapa konfigurasi berikut
-	```
 	mv /etc/squid/squid.conf /etc/squid/squid.conf.bak
-	```
 	
-	Mengubah konfigurasi pada file `/etc/squid/squid.conf`
 	
-	```
+Mengubah konfigurasi pada file `/etc/squid/squid.conf`
+	
+	
 	http_port 5000
 	visible_hostname jualbelikapal.a05.com
 	http_access allow all
-	```
 	
-	Melakukan restart pada Squid
+	
+Melakukan restart pada Squid
 	```
 	service squid restart
 	```
 	
-	#### Pada bagian **Client Loguetown**
-	Aktifkan proxy
-	```
+#### Pada bagian **Client Loguetown**
+Aktifkan proxy
+	
+	
 	export http_proxy="http://jualbelikapal.a05.com:5000"
-	```
 	
-	Cek Proxy
-	```
+	
+Cek Proxy
+	
+	
 	env | grep -i proxy
-	```
 	
-	Maka akan menampilkan
-	![image](https://user-images.githubusercontent.com/80946219/141446549-584b4e29-aff6-48ab-b4c0-e232d5798025.png)
 	
-	Cek proxy dengan perintah `lynx google.com`. Jika berhasil maka akan menampilkan tampilan seperti berikut.
-	![image](https://user-images.githubusercontent.com/80946219/141447065-c8f92ee2-5b28-47ac-9520-48b3a443ae39.png)
-
-
+Maka akan menampilkan
+	
+![image](https://user-images.githubusercontent.com/80946219/141446549-584b4e29-aff6-48ab-b4c0-e232d5798025.png)
+	
+Cek proxy dengan perintah `lynx google.com`. Jika berhasil maka akan menampilkan tampilan seperti berikut.
+	
+![image](https://user-images.githubusercontent.com/80946219/141447065-c8f92ee2-5b28-47ac-9520-48b3a443ae39.png)
+	
+	
+ 
 ## Soal 9
   Agar transaksi jual beli lebih aman dan pengguna website ada dua orang, proxy dipasang autentikasi user proxy dengan enkripsi MD5 dengan dua username, yaitu luffybelikapalyyy dengan password luffy_yyy dan zorobelikapalyyy dengan password zoro_yyy (9)
   ### Jawaban : 
-	#### Pada **Proxy Server (Water7)**
 	
-	Lakukan penginstalan apache2-utils
-	```
+#### Pada **Proxy Server (Water7)**
+
+Lakukan penginstalan apache2-utils
+	
 	apt-get update
 	apt-get install apache2-utils -y
-	```
 	
-	Lalu masukkan perintah berikut
-	```
+	
+Lalu masukkan perintah berikut
+	
 	htpasswd -b -c -m /etc/squid/passwd luffybelikapala05 luffy_a05
+	
 	htpasswd -b -m /etc/squid/passwd zorobelikapala05 zoro_a05
-	```
-	`-m` sebagai kode bahwa password di enkripsi dengan metode MD5
 	
-	Cek pada file `/etc/squid/passwd` apakah data user sudah masuk. Jika sudah maka akan terlihat seperti berikut.
-	![image](https://user-images.githubusercontent.com/80946219/141448028-f799c333-d1d6-4604-a5b6-6b5f058ef0bd.png)
+`-m` sebagai kode bahwa password di enkripsi dengan metode MD5
+	
+Cek pada file `/etc/squid/passwd` apakah data user sudah masuk. Jika sudah maka akan terlihat seperti berikut.
+![image](https://user-images.githubusercontent.com/80946219/141448028-f799c333-d1d6-4604-a5b6-6b5f058ef0bd.png)
 
-	Ubah konfigurasi pada file `/etc/squid/squid.conf` menjadi seperti berikut
+Ubah konfigurasi pada file `/etc/squid/squid.conf` menjadi seperti berikut
 	
-	```
+
 	http_port 5000
 	visible_hostname jualbelikapal.a05.com
 
@@ -383,30 +390,81 @@ Client mendapatkan DNS dari EniesLobby dan client dapat terhubung dengan interne
 	auth_param basic casesensitive on
 	acl USERS proxy_auth REQUIRED
 	http_access allow USERS
-	```
-	
-	Restart Squid
-	```
-	service squid restart
-	```
-	
-	#### Pada bagian **Client Loguetown**
-	Aktifkan proxy
-	```
-	export http_proxy="http://jualbelikapal.a05.com:5000"
-	```
-	
-	Coba akses `http://its.ac.id` dengan command `lynx`. Maka akan menampilkan hal berikut.
-	![image](https://user-images.githubusercontent.com/80946219/141449147-6c63213e-333f-44d2-bff0-1fb22d0a2622.png)
 
-	Ketika memasukkan username dan password barulah bisa diakses
-	![image](https://user-images.githubusercontent.com/80946219/141449520-552fca6f-9009-46da-863a-30c2353c8cec.png)
-	![image](https://user-images.githubusercontent.com/80946219/141449548-28c29166-b227-4bf2-85be-81bdc999a4e1.png)
-	![image](https://user-images.githubusercontent.com/80946219/141449450-10e7f96b-5d7c-41a7-b60b-3b4bb4127b9a.png)
+	
+Restart Squid
+
+	service squid restart
+
+	
+#### Pada bagian **Client Loguetown**
+Aktifkan proxy
+
+	export http_proxy="http://jualbelikapal.a05.com:5000"
+
+	
+Coba akses `http://its.ac.id` dengan command `lynx`. Maka akan menampilkan hal berikut.
+![image](https://user-images.githubusercontent.com/80946219/141449147-6c63213e-333f-44d2-bff0-1fb22d0a2622.png)
+
+Ketika memasukkan username dan password barulah bisa diakses
+![image](https://user-images.githubusercontent.com/80946219/141449520-552fca6f-9009-46da-863a-30c2353c8cec.png)
+	
+![image](https://user-images.githubusercontent.com/80946219/141449548-28c29166-b227-4bf2-85be-81bdc999a4e1.png)
+![image](https://user-images.githubusercontent.com/80946219/141449450-10e7f96b-5d7c-41a7-b60b-3b4bb4127b9a.png)
 	
 	
 ## Soal 10
   Transaksi jual beli tidak dilakukan setiap hari, oleh karena itu akses internet dibatasi hanya dapat diakses setiap hari Senin-Kamis pukul 07.00-11.00 dan setiap hari Selasa-Jum’at pukul 17.00-03.00 keesokan harinya (sampai Sabtu pukul 03.00) (10). 
 ### Jawaban : 
 	
+#### Pada Water7
+Modifikasi file `/etc/squid/acl.conf`
+	acl LIBUR1 time S 00:00-24:00
+	acl LIBUR2 time MT 00:00-07:00
+	acl LIBUR3 time M 11:00-24:00
+	acl LIBUR4 time TWH 11:00-17:00
+	acl LIBUR5 time WHF 03:00-07:00
+	acl LIBUR6 time A 03:00-14:00
+
+Modifikasi juga file `/etc/squid/squid.conf`
+	include /etc/squid/acl.conf
+
+	http_port 5000
+	visible_hostname jualbelikapal.a05.com
+
+	http_access deny LIBUR1
+	http_access deny LIBUR2
+	http_access deny LIBUR3
+	http_access deny LIBUR4
+	http_access deny LIBUR5
+	http_access deny LIBUR6
+
+	auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/pasauth_param basic children 5
+	auth_param basic realm Proxy
+	auth_param basic credentialsttl 2 hours
+	auth_param basic casesensitive on
+	acl USERS proxy_auth REQUIRED
+	http_access allow USERS
 	
+Restart Squid
+
+	service squid restart
+	
+#### Pada Loguetown
+Export proxy
+	
+![10-1](https://user-images.githubusercontent.com/80946219/141480564-6d808a92-5836-4089-b3ac-a81c841b8b7b.jpg)
+
+Ubah tanggal menjadi hari tidak bisa diakses
+	
+![10-2](https://user-images.githubusercontent.com/80946219/141480632-38ddb23e-3418-4527-874f-9090fb9184e7.jpg)
+	
+Maka akses akan ditolak
+	
+![10-3](https://user-images.githubusercontent.com/80946219/141480713-24ae0562-be4a-4d62-83d8-3aec580dd531.jpg)
+
+Jika hari sesuai dengan hari yang bisa diakses
+	
+![10-3-1](https://user-images.githubusercontent.com/80946219/141480792-f957da1a-be77-4bcc-abe9-1446ed9e2702.jpg)
+![10-4](https://user-images.githubusercontent.com/80946219/141480832-095c5a7f-4480-470f-bab9-889ba8855dc3.jpg)
+
