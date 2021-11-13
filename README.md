@@ -496,5 +496,31 @@ Lalu tes pada Loguetown dengan mengetikkan ```lynx google.com```. Maka hasilnya 
 
 
 ## Soal 12
-## Soal 13
+Saatnya berlayar! Luffy dan Zoro akhirnya memutuskan untuk berlayar untuk mencari harta karun di super.franky.yyy.com. Tugas pencarian dibagi menjadi dua misi, Luffy bertugas untuk mendapatkan gambar (.png, .jpg), sedangkan Zoro mendapatkan sisanya. Karena Luffy orangnya sangat teliti untuk mencari harta karun, ketika ia berhasil mendapatkan gambar, ia mendapatkan gambar dan melihatnya dengan kecepatan 10 kbps 
+	
+### Jawaban 
+Buka /etc/squid/squid.conf pada Water7. Kemudian tambahkan konfigurasi berikut
+![image](https://user-images.githubusercontent.com/42856438/141608733-a1934593-4dc6-4cb6-810d-6bb027584a05.png)
 
+Kemudian coba tes download gambar pada Loguetwon. Ketik ```lynx google.com``` menggunakan username dan password luffy
+![image](https://user-images.githubusercontent.com/42856438/141608655-2ad9fc32-8266-42b2-b4f5-59c9b7daf4fa.png)
+Kecepatan dibatasi menjadi 10 kbps
+
+Gambar berhasil terdownload.
+
+![image](https://user-images.githubusercontent.com/42856438/141608722-420748a5-b653-40cf-9988-efe89f87de88.png)
+
+	
+## Soal 13
+Sedangkan, Zoro yang sangat bersemangat untuk mencari harta karun, sehingga kecepatan kapal Zoro tidak dibatasi ketika sudah mendapatkan harta yang diinginkannya
+
+### Jawaban 
+Sama seperti soal sebelumnya, namun tambahkan konfigurasi berikut.
+![image](https://user-images.githubusercontent.com/42856438/141608842-d2e2c93c-8628-49ec-a00f-c85d55767574.png)
+Kemudian jangan lupa restart proxynya. 
+	
+Kemudian tes download gambar pada Loguetown. Ketik ```lynx google.com``` menggunakan username dan password zoro. 
+![image](https://user-images.githubusercontent.com/42856438/141608924-e645e7e6-bfc4-4955-b1d1-c3425b2be46f.png)
+Dan file car.jpg berhasil didownload tanpa limit kecepatan. 
+
+	
