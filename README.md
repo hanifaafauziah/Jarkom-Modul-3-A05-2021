@@ -467,4 +467,33 @@ Jika hari sesuai dengan hari yang bisa diakses
 	
 ![10-3-1](https://user-images.githubusercontent.com/80946219/141480792-f957da1a-be77-4bcc-abe9-1446ed9e2702.jpg)
 ![10-4](https://user-images.githubusercontent.com/80946219/141480832-095c5a7f-4480-470f-bab9-889ba8855dc3.jpg)
+	
+## Soal 11
+Agar transaksi bisa lebih fokus berjalan, maka dilakukan redirect website agar mudah mengingat website transaksi jual beli kapal. Setiap mengakses google.com, akan diredirect menuju super.franky.yyy.com dengan website yang sama pada soal shift modul 2. Web server super.franky.yyy.com berada pada node Skypie
+
+### Jawaban 
+Pertama kita config domain franky.a05.com di EnniesLobby
+![image](https://user-images.githubusercontent.com/42856438/141607805-f91f0785-8173-4021-9b0b-9a30ef45c951.png)
+	
+Kemudian buka file franky.a05.com, lalu edit seperti gambar dibawah ini
+![image](https://user-images.githubusercontent.com/42856438/141607854-3db00816-c184-4bf9-8a63-28ec92150fe3.png)
+	
+Kemudian jangan lupa untuk restart apache. Jika sudah, maka kita edit konfigurasi pada file super.franky.a05.com.conf di nodes Skypie. Ubah menjadi seperti gambar dibawah ini 
+![image](https://user-images.githubusercontent.com/42856438/141607968-742bc03e-092d-4939-a070-cdebfd4c57ac.png)
+
+Kemudian pindah ke root pada skypie lalu download file dari https://raw.githubusercontent.com/FeinardSlim/Praktikum-Modul-2-Jarkom/main/super.franky.zip. Jika sudah, unzip pada direktori /var/www dan buat direktori super.franky.a05.com. 
+
+Lalu aktifkan dengan command ```a2ensite super.franky.a05.com```
+	
+Selanjutnya yaitu pindah ke nodes Water7, buka file /etc/squid/squid.conf. Kemudian ketik config dibawah ini
+![image](https://user-images.githubusercontent.com/42856438/141608224-47c073b0-cf5c-4f5f-b02e-98b3f86d839f.png)
+
+Kemudian ```service squid restart```
+
+Lalu tes pada Loguetown dengan mengetikkan ```lynx google.com```. Maka hasilnya akan seperti berikut
+![image](https://user-images.githubusercontent.com/42856438/141608291-2a11543b-5fc7-4597-bb27-6b4577843f72.png)
+
+
+## Soal 12
+## Soal 13
 
