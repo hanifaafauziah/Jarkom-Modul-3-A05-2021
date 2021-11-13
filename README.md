@@ -472,7 +472,8 @@ Jika hari sesuai dengan hari yang bisa diakses
 Agar transaksi bisa lebih fokus berjalan, maka dilakukan redirect website agar mudah mengingat website transaksi jual beli kapal. Setiap mengakses google.com, akan diredirect menuju super.franky.yyy.com dengan website yang sama pada soal shift modul 2. Web server super.franky.yyy.com berada pada node Skypie
 
 ### Jawaban 
-Pertama kita config domain franky.a05.com di EnniesLobby
+Pertama kita config domain franky.a05.com di EnniesLobby yang berada di file named.conf.local.
+	
 ![image](https://user-images.githubusercontent.com/42856438/141607805-f91f0785-8173-4021-9b0b-9a30ef45c951.png)
 	
 Kemudian buka file franky.a05.com, lalu edit seperti gambar dibawah ini
