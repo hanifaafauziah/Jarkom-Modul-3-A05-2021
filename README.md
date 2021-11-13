@@ -516,11 +516,15 @@ Sedangkan, Zoro yang sangat bersemangat untuk mencari harta karun, sehingga kece
 
 ### Jawaban 
 Sama seperti soal sebelumnya, namun tambahkan konfigurasi berikut.
+	
 ![image](https://user-images.githubusercontent.com/42856438/141608842-d2e2c93c-8628-49ec-a00f-c85d55767574.png)
+	
 Kemudian jangan lupa restart proxynya. 
 	
-Kemudian tes download gambar pada Loguetown. Ketik ```lynx google.com``` menggunakan username dan password zoro. 
+Kemudian tes download gambar pada Loguetown. Ketik ```lynx google.com``` menggunakan username dan password zoro.
+	
 ![image](https://user-images.githubusercontent.com/42856438/141608924-e645e7e6-bfc4-4955-b1d1-c3425b2be46f.png)
+	
 Dan file car.jpg berhasil didownload tanpa limit kecepatan. 
 
 	
